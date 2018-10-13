@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author KingPin
- *
- */
-module YostFinalProject {
-}

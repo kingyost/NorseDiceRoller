@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -17,58 +18,55 @@ import javafx.scene.image.ImageView;
 
 public class diceController implements Initializable{
     
-    ComboBox savedRollsCmbBx;
-    ComboBox prevRollsCmbBx;
+    @FXML private ComboBox savedRollsCmbBx;
+    @FXML private ComboBox prevRollsCmbBx;
     
-    TextArea resultsBx;
+    @FXML private TextArea resultsBx;
     
-    CheckBox d4saveChkBx;
-    CheckBox d6saveChkBx;
-    CheckBox d8saveChkBx;
-    CheckBox d10saveChkBx;
-    CheckBox d12saveChkBx;
-    CheckBox d20saveChkBx;
-    CheckBox dSaveChkBx;
+    @FXML private CheckBox d4saveChkBx;
+    @FXML private CheckBox d6saveChkBx;
+    @FXML private CheckBox d8saveChkBx;
+    @FXML private CheckBox d10saveChkBx;
+    @FXML private CheckBox d12saveChkBx;
+    @FXML private CheckBox d20saveChkBx;
+    @FXML private CheckBox dSaveChkBx;
     
-    CheckBox d4minusChkBx;
-    CheckBox d6minusChkBx;
-    CheckBox d8minusChkBx;
-    CheckBox d10minusChkBx;
-    CheckBox d12minusChkBx;
-    CheckBox d20minusChkBx;
-    CheckBox dMinusChkBx;
+    @FXML private CheckBox d4minusChkBx;
+    @FXML private CheckBox d6minusChkBx;
+    @FXML private CheckBox d8minusChkBx;
+    @FXML private CheckBox d10minusChkBx;
+    @FXML private CheckBox d12minusChkBx;
+    @FXML private CheckBox d20minusChkBx;
+    @FXML private CheckBox dMinusChkBx;
     
-    CheckBox runicDiceChkBx;
+    @FXML private CheckBox runicDiceChkBx;
     
-    TextField d4rolled;
-    TextField d6rolled;
-    TextField d8rolled;
-    TextField d10rolled;
-    TextField d12rolled;
-    TextField d20rolled;
-    TextField dRolled; //amount of dice to roll
-    TextField dNumber; //number of sides dice has
+    @FXML private TextField d4rolled;
+    @FXML private TextField d6rolled;
+    @FXML private TextField d8rolled;
+    @FXML private TextField d10rolled;
+    @FXML private TextField d12rolled;
+    @FXML private TextField d20rolled;
+    @FXML private TextField dRolled; //amount of dice to roll
+    @FXML private TextField dNumber; //number of sides dice has
     
-    TextField d4Augment;
-    TextField d6Augment;
-    TextField d8Augment;
-    TextField d10Augment;
-    TextField d12Augment;
-    TextField d20Augment;
-    TextField dAugment;
+    @FXML private TextField d4Augment;
+    @FXML private TextField d6Augment;
+    @FXML private TextField d8Augment;
+    @FXML private TextField d10Augment;
+    @FXML private TextField d12Augment;
+    @FXML private TextField d20Augment;
+    @FXML private TextField dAugment;
     
     ImageView runeImg;
     ImageView runeDiscription;
     
     ArrayList<Image> diceImages = new ArrayList<Image>();
 
-    public void initialize(URL arg0, ResourceBundle arg1) {
-	// TODO Auto-generated method stub
-	
-    }
+
     
     
-    public void rollButtonAction(ActionEvent event)
+    @FXML public void rollButtonAction(ActionEvent event)
     {
 	resultsBx.appendText("hello");
 	System.out.println("hello");
@@ -83,7 +81,7 @@ public class diceController implements Initializable{
     
     
 
-    public void loadDiceImage()
+    @FXML public void loadDiceImage()
     {
 	String diceImgs = "file:runes/";
 	String[] side = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"};
@@ -114,7 +112,7 @@ public class diceController implements Initializable{
 	}
     }
     
-    private void clear() 
+    @FXML private void clear() 
     {
 	d4saveChkBx.setSelected(false);
 	d6saveChkBx.setSelected(false);
@@ -149,6 +147,20 @@ public class diceController implements Initializable{
 	d12Augment.setText("0");
 	d20Augment.setText("0");
 	dAugment.setText("0");
+    }
+
+
+
+
+
+
+
+
+
+
+    public void initialize(URL arg0, ResourceBundle arg1) {
+	// TODO Auto-generated method stub
+	
     }
     
 }

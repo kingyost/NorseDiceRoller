@@ -68,8 +68,15 @@ public class diceController implements Initializable{
     
     @FXML public void rollButtonAction(ActionEvent event)
     {
-	resultsBx.appendText("hello");
-	System.out.println("hello");
+//	resultsBx.appendText("hello");
+//	System.out.println("hello");
+	
+	if(runicDiceChkBx.isSelected())
+	{
+	    
+	}
+	
+	
     }
     
     
@@ -148,14 +155,6 @@ public class diceController implements Initializable{
 	d20Augment.setText("0");
 	dAugment.setText("0");
     }
-
-
-
-
-
-
-
-
 
 
     public void initialize(URL arg0, ResourceBundle arg1) {

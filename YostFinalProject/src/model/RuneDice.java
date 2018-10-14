@@ -5,12 +5,13 @@ import java.util.regex.Pattern;
 
 import javafx.application.Application;
 
-public class RuneDice implements Roller{
+public abstract class RuneDice implements Roller{
     
     
-    private int upSide = 1;
-    private int orientation = 1;
-    private int totalSides =24;
+    private int upSide;
+    private int orientation;
+    private int totalSides = 24;
+//    private int amount = 1;
 //    int test;
 
     public int getSide() {
@@ -26,6 +27,7 @@ public class RuneDice implements Roller{
     public void roll(int side) {
 	
 	side = totalSides;
+//	amount = this.amount;
 	upSide = ((int)(Math.random() *side) +1);
 	
 	Pattern p = Pattern.compile("[1|2|3|4|5|6|8|14|15|22|23]");

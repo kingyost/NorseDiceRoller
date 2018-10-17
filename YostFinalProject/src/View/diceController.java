@@ -1,5 +1,10 @@
 package View;
 
+import model.Dice;
+import model.RuneDice;
+import writer.DiceWriter;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -9,6 +14,8 @@ import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -17,76 +24,187 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class diceController implements Initializable{
-    
+
+    RuneDice rDice;
+    Dice dice;
+    DiceWriter write;
+
     @FXML private ComboBox savedRollsCmbBx;
     @FXML private ComboBox prevRollsCmbBx;
-    
+
     @FXML private TextArea resultsBx;
-    
+
     @FXML private CheckBox d4saveChkBx;
     @FXML private CheckBox d6saveChkBx;
     @FXML private CheckBox d8saveChkBx;
     @FXML private CheckBox d10saveChkBx;
     @FXML private CheckBox d12saveChkBx;
     @FXML private CheckBox d20saveChkBx;
+    @FXML private CheckBox d100saveChkBx;
     @FXML private CheckBox dSaveChkBx;
-    
-    @FXML private CheckBox d4minusChkBx;
-    @FXML private CheckBox d6minusChkBx;
-    @FXML private CheckBox d8minusChkBx;
-    @FXML private CheckBox d10minusChkBx;
-    @FXML private CheckBox d12minusChkBx;
-    @FXML private CheckBox d20minusChkBx;
-    @FXML private CheckBox dMinusChkBx;
-    
-    @FXML private CheckBox runicDiceChkBx;
-    
+
     @FXML private TextField d4rolled;
     @FXML private TextField d6rolled;
     @FXML private TextField d8rolled;
     @FXML private TextField d10rolled;
     @FXML private TextField d12rolled;
     @FXML private TextField d20rolled;
+    @FXML private TextField d100rolled;
     @FXML private TextField dRolled; //amount of dice to roll
     @FXML private TextField dNumber; //number of sides dice has
-    
+
+
+    @FXML private CheckBox d4minusChkBx;
+    @FXML private CheckBox d6minusChkBx;
+    @FXML private CheckBox d8minusChkBx;
+    @FXML private CheckBox d10minusChkBx;
+    @FXML private CheckBox d12minusChkBx;
+    @FXML private CheckBox d20minusChkBx;
+    @FXML private CheckBox d100minusChkBx;
+    @FXML private CheckBox dMinusChkBx;
+
     @FXML private TextField d4Augment;
     @FXML private TextField d6Augment;
     @FXML private TextField d8Augment;
     @FXML private TextField d10Augment;
     @FXML private TextField d12Augment;
     @FXML private TextField d20Augment;
+    @FXML private TextField d100Augment;
     @FXML private TextField dAugment;
-    
-    ImageView runeImg;
-    ImageView runeDiscription;
-    
+
+    @FXML private CheckBox runicDiceChkBx;
+
+    @FXML private ImageView runeImg;
+    @FXML private ImageView runeDiscription;
+
     ArrayList<Image> diceImages = new ArrayList<Image>();
+    ArrayList<Image> imgMeaning = new ArrayList<Image>();
+
+    String file = "SavedRolls";
 
 
-    
-    
+
     @FXML public void rollButtonAction(ActionEvent event)
     {
-//	resultsBx.appendText("hello");
-//	System.out.println("hello");
+
+	String d4roll = d4rolled.getText();
+	String d6roll = d6rolled.getText();
+	String d8roll = d8rolled.getText();
+	String d10roll = d10rolled.getText();
+	String d12roll = d12rolled.getText();
+	String d20roll = d20rolled.getText();
+	String d100roll = d100rolled.getText();
+	String dRoll = dRolled.getText();
+	String dSide = dNumber.getText();
+
+	String d4Plus = d4Augment.getText();
+	String d6Plus = d6Augment.getText();
+	String d8Plus = d8Augment.getText();
+	String d10Plus = d10Augment.getText();
+	String d12Plus = d12Augment.getText();
+	String d20Plus = d20Augment.getText();
+	String d100Plus = d100Augment.getText();
+	String dPlus = dAugment.getText();
+
 	
+
+//	resultsBx.appendText("append test\n");
+
+
+
+
+
 	if(runicDiceChkBx.isSelected())
 	{
+
+	    rDice.roll();
+	    rDice.getSide();
+
+
+	    int index = (rDice.getOrientation() == 1)
+		    ? rDice.getSide() + 24
+			    : rDice.getSide();
+
+	    runeImg.setImage(diceImages.get(index));
+	    runeDiscription.setImage(imgMeaning.get(index));
+	    rDice.resetOrientation();
+	}
+	try {
+	    if(!d4roll.equals("") && !d4roll.equals("0"))	    
+	    {
+		RollCall(4, Integer.parseInt(d4roll), Integer.parseInt(d4Plus), d4minusChkBx.isSelected());
+	    }
+	    if(!d6roll.equals("") && !d6roll.equals("0"))		   
+	    {
+		RollCall(6, Integer.parseInt(d6roll), Integer.parseInt(d4Plus), d6minusChkBx.isSelected());
+	    }
+	    if(!d8roll.equals("") && !d8roll.equals("0"))	    
+	    {
+		RollCall(4, Integer.parseInt(d8roll), Integer.parseInt(d4Plus), d8minusChkBx.isSelected());
+	    }
+	    if(!d10roll.equals("") && !d10roll.equals("0"))		   
+	    {
+		RollCall(6, Integer.parseInt(d10roll), Integer.parseInt(d4Plus), d10minusChkBx.isSelected());
+	    }
+	    if(!d12roll.equals("") && !d12roll.equals("0"))	    
+	    {
+		RollCall(4, Integer.parseInt(d12roll), Integer.parseInt(d4Plus), d12minusChkBx.isSelected());
+	    }
+	    if(!d20roll.equals("") && !d20roll.equals("0"))		   
+	    {
+		RollCall(6, Integer.parseInt(d20roll), Integer.parseInt(d4Plus), d20minusChkBx.isSelected());
+	    }
+	    if(!d100roll.equals("") && !d100roll.equals("0"))	    
+	    {
+		RollCall(100, Integer.parseInt(d100roll), Integer.parseInt(d4Plus), d100minusChkBx.isSelected());
+	    }
+	    if(!dRoll.equals("") && !dRoll.equals("0"))	    
+	    {
+		RollCall(Integer.parseInt(dSide), Integer.parseInt(dRoll), Integer.parseInt(d4Plus), dMinusChkBx.isSelected());
+	    }
 	    
+	    DiceWriter()
+
+	}
+	catch(NumberFormatException e)
+	{
+	    Alert alert = new Alert(AlertType.ERROR, "Only enter numbers in the text boxes.");
+	    alert.showAndWait();
+	}
+	
+	catch(IOException x) {
+	    Alert alert = new Alert(AlertType.ERROR, "");
+	    alert.showAndWait();
+	}
+
+
+
+    }
+
+
+
+
+
+    public void RollCall(int side, int amount, int agument, boolean Agu)
+    {
+	int modAgument=agument;
+	
+	if(Agu)
+	{
+	    modAgument = -agument;
 	}
 	
 	
+	Dice dice = new Dice(side, amount, modAgument);
+	
+	
+	dice.roll();
+	
+//    	    resultsBx.appendText(Integer.toString(dice.getTotal()) + "\n");
+	String printout = amount+ "d"+ side +" = "+dice.getTotal();
+	resultsBx.appendText(printout+"\n");
+	dice.resetTotal();
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     @FXML public void loadDiceImage()
     {
@@ -95,30 +213,48 @@ public class diceController implements Initializable{
 	char[] orientation = {'n','r'};
 	int slot = 0;
 	Image dice;
+	Image img;
 	String path;
-	for(int i = 1; i <= 24;i++)
+	String meaning;
+
+	for(int i=0; i<55;i++)
 	{
-	    Pattern p = Pattern.compile("[1|2|3|4|5|6|8|14|15|22|23]");
+	    diceImages.add(null);
+	    imgMeaning.add(null);
+	}
+	for(int i = 1; i < 25;i++)
+	{
+	    Pattern p = Pattern.compile("^1|2|3|4|5|6|8|14|15|22|23$");
 	    String tempSide = Integer.toString(i);
 	    Matcher m = p.matcher(tempSide);
 
 	    if(m.matches())
 	    {
-		int x = ((int)(Math.random() *1)+1);
-		path = diceImgs + side[i] + orientation[x] + ".jpg";
+//		    int x = ((int)(Math.random() *1)+1);
+		path = diceImgs + side[i-1] + orientation[1] + ".jpg";
+		meaning = diceImgs + side[i-1] + orientation[1] + "-meaning.jpg";
+//	    System.out.println(path);
+//	    System.out.println(meaning);
+//	    System.out.println(i+24);
+		dice = new Image(path);
+		img = new Image(meaning);
+		diceImages.set(i+24,dice);
+		imgMeaning.set(i+24,img);
+	    }
 
-		
-	    }
-	    else
-	    {
-		path = diceImgs + side[i] + orientation[0] + ".jpg";
-	    }
+	    path = diceImgs + side[i-1] + orientation[0] + ".jpg";
+	    meaning = diceImgs + side[i-1] + orientation[0] + "-meaning.jpg";
+//	System.out.println(path);
+//	System.out.println(meaning);
+//	System.out.println(i);
 	    dice = new Image(path);
-	    diceImages.add(dice);
-	    
+	    img = new Image(meaning);
+	    diceImages.set(i,dice);
+	    imgMeaning.set(i,img);
+
 	}
     }
-    
+
     @FXML private void clear() 
     {
 	d4saveChkBx.setSelected(false);
@@ -159,7 +295,7 @@ public class diceController implements Initializable{
 
     public void initialize(URL arg0, ResourceBundle arg1) {
 	// TODO Auto-generated method stub
-	
+	loadDiceImage();
     }
-    
+
 }

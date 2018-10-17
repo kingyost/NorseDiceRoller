@@ -110,9 +110,14 @@ public class diceController implements Initializable{
 	String d20Plus = d20Augment.getText();
 	String d100Plus = d100Augment.getText();
 	String dPlus = dAugment.getText();
+	
+//	boolean runeTog = RuneToggle.isSelected();
+	boolean runeTog = false;
+	boolean diceTog = true;
 
 
-	if(RuneToggle.isSelected())
+//	if(RuneToggle.isSelected())
+	if(runeTog)
 	{
 	    if(runicDiceChkBx.isSelected())
 	    {
@@ -131,7 +136,7 @@ public class diceController implements Initializable{
 	    }
 	}
 	
-	else if (DiceToggle.isSelected()){
+	else if (diceTog){
 	    try {
 		if(!d4roll.equals("") && !d4roll.equals("0"))	    
 		{
@@ -166,9 +171,9 @@ public class diceController implements Initializable{
 		    RollCall(Integer.parseInt(dSide), Integer.parseInt(dRoll), Integer.parseInt(dPlus), dMinusChkBx.isSelected());
 		}
 
-		if(d4saveChkBx.isSelected())
-		{
-		    write.SaveRoll(file, d4roll, "4", d4Plus, d4minusChkBx.isSelected());
+//		if(d4saveChkBx.isSelected())
+		if(diceTog)
+		{ write.SaveRoll(file, d4roll, "4", d4Plus, d4minusChkBx.isSelected());
 		} else if(d6saveChkBx.isSelected()) {
 		    write.SaveRoll(file, d6roll, "6", d6Plus, d6minusChkBx.isSelected());
 		} else if(d8saveChkBx.isSelected()) {

@@ -3,7 +3,6 @@ package model;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javafx.application.Application;
 
 public class RuneDice extends Dice{
     

@@ -10,9 +10,9 @@ public class DiceWriter {
     
     private boolean flag = true;
     
-    Dice dice;
+//    Dice dice;
     
-    public void SaveRoll(String file, String amount, String sides, String augment, boolean aug)
+    public void SaveRoll(String file, String amount, String sides, String augment, boolean aug) throws IOException
     {
 	try {
 	    PrintWriter output = new PrintWriter(new FileWriter(file, true));
@@ -21,9 +21,10 @@ public class DiceWriter {
 	    flag = true;
 		
 	}
-	catch(IOException x) {
+	catch(Exception x){
 	    flag = false;
 	}
+	
 	
     }
     

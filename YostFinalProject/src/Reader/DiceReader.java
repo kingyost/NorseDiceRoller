@@ -22,7 +22,7 @@ public class DiceReader {
 	Scanner input;
 	String amount;
 	String sides;
-	boolean plus;
+//	boolean plus;
 	String plusStr;
 	String augment;
 	
@@ -38,10 +38,10 @@ public class DiceReader {
 	    sides = fields[1];
 	    if(fields[2].equals("true"))
 	    {
-		plus = true;
+//		plus = true;
 		plusStr = "-";
 	    } else {
-		plus = false;
+//		plus = false;
 		plusStr = "+";
 	    }
 	    augment = fields[3];

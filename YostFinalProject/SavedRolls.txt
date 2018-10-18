@@ -1,0 +1,5 @@
+1,4,true,1 
+1,6,false,2 
+10,8,false,2
+1,10,false,1 
+1,20,false,2 1,4,false,1 

@@ -28,9 +28,11 @@ import javafx.scene.image.ImageView;
 
 public class diceController implements Initializable{
 
-    RuneDice rDice;
-    Dice dice;
-//    DiceWriter write;
+//    RuneDice rDice;  // it kept erroring out when this was empty
+//    Dice dice;       // it kept erroring out when this was empty
+    
+    RuneDice rDice= new RuneDice(0,0);
+    Dice dice = new Dice(0,0,0);  
     DiceWriter write= new DiceWriter();
     DiceReader read= new DiceReader();
 
@@ -78,7 +80,7 @@ public class diceController implements Initializable{
 
     @FXML private RadioButton RuneToggle;
     @FXML private RadioButton DiceToggle;
-    @FXML private RadioButton SaveToggle;
+    @FXML private RadioButton SavedToggle;
 
     
 
@@ -150,19 +152,19 @@ public class diceController implements Initializable{
 		}
 		if(!d8roll.equals("") && !d8roll.equals("0"))	    
 		{
-		    RollCall(4, Integer.parseInt(d8roll), Integer.parseInt(d8Plus), d8minusChkBx.isSelected());
+		    RollCall(8, Integer.parseInt(d8roll), Integer.parseInt(d8Plus), d8minusChkBx.isSelected());
 		}
 		if(!d10roll.equals("") && !d10roll.equals("0"))		   
 		{
-		    RollCall(6, Integer.parseInt(d10roll), Integer.parseInt(d10Plus), d10minusChkBx.isSelected());
+		    RollCall(10, Integer.parseInt(d10roll), Integer.parseInt(d10Plus), d10minusChkBx.isSelected());
 		}
 		if(!d12roll.equals("") && !d12roll.equals("0"))	    
 		{
-		    RollCall(4, Integer.parseInt(d12roll), Integer.parseInt(d12Plus), d12minusChkBx.isSelected());
+		    RollCall(12, Integer.parseInt(d12roll), Integer.parseInt(d12Plus), d12minusChkBx.isSelected());
 		}
 		if(!d20roll.equals("") && !d20roll.equals("0"))		   
 		{
-		    RollCall(6, Integer.parseInt(d20roll), Integer.parseInt(d20Plus), d20minusChkBx.isSelected());
+		    RollCall(20, Integer.parseInt(d20roll), Integer.parseInt(d20Plus), d20minusChkBx.isSelected());
 		}
 		if(!d100roll.equals("") && !d100roll.equals("0"))	    
 		{
@@ -177,6 +179,7 @@ public class diceController implements Initializable{
 		
 		if(d4saveRB.isSelected()){ 
 		    write.SaveRoll(file, d4roll, "4", d4Plus, d4minusChkBx.isSelected());
+		    RollBox(4, Integer.parseInt(d4roll), Integer.parseInt(d4Plus), d4minusChkBx.isSelected());
 		} else if(d6saveRB.isSelected()) {
 		    write.SaveRoll(file, d6roll, "6", d6Plus, d6minusChkBx.isSelected());
 		} else if(d8saveRB.isSelected()) {
@@ -187,7 +190,9 @@ public class diceController implements Initializable{
 		    write.SaveRoll(file, d12roll, "12", d12Plus, d12minusChkBx.isSelected());
 		}  else if(d20saveRB.isSelected()) {
 		    write.SaveRoll(file, d20roll, "20", d20Plus, d20minusChkBx.isSelected());
-		} else {
+		}  else if(d100saveRB.isSelected()) {
+		    write.SaveRoll(file, d100roll, "100", d100Plus, d100minusChkBx.isSelected());
+		} else if(dSaveRB.isSelected()){
 		    write.SaveRoll(file, dRoll, dSide, d4Plus, dMinusChkBx.isSelected());
 		}
 
@@ -202,12 +207,23 @@ public class diceController implements Initializable{
 		alert.showAndWait();
 	    }
 	    
-	} else if (SaveToggle.isSelected()){
-	    if(savedRollsCmbBx.getSelectionModel() != null)
-	    {
-		clickCombo(savedRollsCmbBx.getSelectionModel().getSelectedIndex());
-	    }
-	} else {
+	} 
+//	
+	else if (SavedToggle.isSelected()){
+//	    if(savedRollsCmbBx.getSelectionModel() != null)
+//	    {
+//		clickCombo(savedRollsCmbBx.getSelectionModel().getSelectedIndex());
+//	    }
+//	    else {
+//		Alert alert = new Alert(AlertType.ERROR, "Make sure you select a roll");
+//		alert.showAndWait();
+//	    }
+	    
+	    Alert alert = new Alert(AlertType.ERROR, "Functionality Comming Soon!\n For now you can only see saved rolls.");
+	    alert.showAndWait();
+	} 
+	
+	else {
 	    Alert alert = new Alert(AlertType.ERROR, "please select a radio button.");
 	    alert.showAndWait();
 	}
@@ -216,7 +232,7 @@ public class diceController implements Initializable{
 
 	clear();
 	
-	initialize(null, null);
+//	initialize(null, null);
     }
 
     @FXML public void clickCombo(int index)
@@ -251,18 +267,27 @@ public class diceController implements Initializable{
 	    plus = "-";
 	}
 	
-	
-
-
 	Dice dice = new Dice(side, amount, modAgument);
-
 
 	dice.roll();
 
-	//    	    resultsBx.appendText(Integer.toString(dice.getTotal()) + "\n");
 	String printout = amount+ "d"+ side + plus + agument +" = "+dice.getTotal();
+//	String printout = Rolls(side, amount, agument, Agu);
 	resultsBx.appendText(printout+"\n");
 	dice.resetTotal();
+    }
+    
+    public void RollBox(int side, int amount, int agument, boolean Agu)
+    {
+	String plus = "+";
+
+	if(Agu)
+	{
+	    plus = "-";
+	}
+	
+	String printout = amount+ "d"+ side + plus + agument;
+	savedRollsCmbBx.getItems().add(printout);
     }
 
     @FXML public void loadDiceImage()
@@ -332,24 +357,29 @@ public class diceController implements Initializable{
 	dMinusChkBx.setSelected(false);
 
 	runicDiceChkBx.setSelected(false);
-	
-	
 
-	d4rolled.setText("0");
-	d6rolled.setText("0");
-	d8rolled.setText("0");
-	d10rolled.setText("0");
-	d12rolled.setText("0");
-	d20rolled.setText("0");
-	dRolled.setText("0");
-	dNumber.setText("0");
-	d4Augment.setText("0");
-	d6Augment.setText("0");
-	d8Augment.setText("0");
-	d10Augment.setText("0");
-	d12Augment.setText("0");
-	d20Augment.setText("0");
-	dAugment.setText("0");
+	d4rolled.setText("");
+	d6rolled.setText("");
+	d8rolled.setText("");
+	d10rolled.setText("");
+	d12rolled.setText("");
+	d20rolled.setText("");
+	d100rolled.setText("");
+	dRolled.setText("");
+	dNumber.setText("");
+	
+	d4Augment.setText("");
+	d6Augment.setText("");
+	d8Augment.setText("");
+	d10Augment.setText("");
+	d12Augment.setText("");
+	d20Augment.setText("");
+	d100Augment.setText("");
+	dAugment.setText("");
+	
+//	diceString.removeAll(read.getDiceStr());
+//	savedRollsCmbBx.getItems().setAll(read.getDiceStr());
+//	savedRollsCmbBx.ite
     }
 
 
@@ -359,16 +389,13 @@ public class diceController implements Initializable{
 
 //	read.loadDice(file);
 	
-//	savedRollsCmbBx.setItems(read.loadDice(file));
+
 	read.loadDice(file);
 	savedRollsCmbBx.getItems().setAll(read.getDiceStr());
-	diceString.addAll(read.getDice());
+//	diceString.addAll(read.getDice());
+	
 	
     }
     
-    public void readDice()
-    {
-	
-    }
 
 }

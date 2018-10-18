@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.diceController">
+   <children>
+      <TextArea fx:id="resultsBx" layoutX="400.0" layoutY="28.0" prefHeight="312.0" prefWidth="279.0" />
+      <ComboBox fx:id="savedRollsCmbBx" layoutX="200.0" layoutY="28.0" prefWidth="150.0" />
+      <Label layoutX="125.0" layoutY="32.0" text="Saved Rolls" />
+      <Button fx:id="rollButton" layoutX="189.0" layoutY="478.0" mnemonicParsing="false" onAction="#rollButtonAction" prefHeight="25.0" prefWidth="96.0" text="ROLL" />
+      <TextField fx:id="d4rolled" layoutX="163.0" layoutY="88.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d10rolled" layoutX="163.0" layoutY="186.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d8rolled" layoutX="163.0" layoutY="153.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d6rolled" layoutX="164.0" layoutY="122.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d100rolled" layoutX="163.0" layoutY="286.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d20rolled" layoutX="163.0" layoutY="253.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d12rolled" layoutX="163.0" layoutY="220.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="dRolled" layoutX="165.0" layoutY="319.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="dNumber" layoutX="213.0" layoutY="319.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <CheckBox fx:id="d4minusChkBx" layoutX="249.0" layoutY="92.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="35.0" text="-" />
+      <CheckBox fx:id="d6minusChkBx" layoutX="252.0" layoutY="125.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="28.0" text="-" />
+      <CheckBox fx:id="d8minusChkBx" layoutX="249.0" layoutY="157.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="35.0" text="-" />
+      <CheckBox fx:id="d10minusChkBx" layoutX="252.0" layoutY="190.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="28.0" text="-" />
+      <CheckBox fx:id="d12minusChkBx" layoutX="249.0" layoutY="224.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="35.0" text="-" />
+      <CheckBox fx:id="d20minusChkBx" layoutX="253.0" layoutY="257.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="28.0" text="-" />
+      <CheckBox fx:id="d100minusChkBx" layoutX="252.0" layoutY="290.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="28.0" text="-" />
+      <CheckBox fx:id="dMinusChkBx" layoutX="254.0" layoutY="321.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="35.0" text="-" />
+      <TextField fx:id="d4Augment" layoutX="289.0" layoutY="92.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d10Augment" layoutX="289.0" layoutY="190.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d8Augment" layoutX="289.0" layoutY="157.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d6Augment" layoutX="290.0" layoutY="126.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d100Augment" layoutX="289.0" layoutY="286.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d20Augment" layoutX="289.0" layoutY="257.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="d12Augment" layoutX="289.0" layoutY="224.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <TextField fx:id="dAugment" layoutX="291.0" layoutY="323.0" prefHeight="25.0" prefWidth="24.0" promptText="0" />
+      <Separator layoutX="-1.0" layoutY="350.0" prefHeight="17.0" prefWidth="683.0" />
+      <CheckBox fx:id="runicDiceChkBx" layoutX="143.0" layoutY="404.0" mnemonicParsing="false" />
+      <Label layoutX="191.0" layoutY="91.0" text="D4" />
+      <Label layoutX="191.0" layoutY="257.0" text="D20" />
+      <Label layoutX="191.0" layoutY="224.0" text="D12" />
+      <Label layoutX="191.0" layoutY="190.0" text="D10" />
+      <Label layoutX="191.0" layoutY="157.0" text="D8" />
+      <Label layoutX="191.0" layoutY="125.0" text="D6" />
+      <Label layoutX="196.0" layoutY="323.0" text="D" />
+      <Label layoutX="191.0" layoutY="290.0" text="D100" />
+      <Label layoutX="130.0" layoutY="71.0" text="Save Roll" />
+      <Label layoutX="238.0" layoutY="71.0" text="Minus" />
+      <Label layoutX="183.0" layoutY="400.0" prefHeight="25.0" prefWidth="108.0" text="Nord Runic Dice" />
+      <Label layoutX="290.0" layoutY="404.0" text="D24" />
+      <Label layoutX="121.0" layoutY="367.0" prefHeight="25.0" prefWidth="73.0" text="Check to Roll" />
+      <ImageView fx:id="runeImg" fitHeight="150.0" fitWidth="150.0" layoutX="358.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="runeDiscription" fitHeight="150.0" fitWidth="172.0" layoutX="508.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true" />
+      <Separator layoutX="115.0" layoutY="8.0" orientation="VERTICAL" prefHeight="516.0" prefWidth="9.0" />
+      <RadioButton fx:id="DiceToggle" layoutX="23.0" layoutY="190.0" mnemonicParsing="false" selected="true" text="Dice">
+         <toggleGroup>
+            <ToggleGroup fx:id="RuneVsDice" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="RuneToggle" layoutX="14.0" layoutY="442.0" mnemonicParsing="false" text="Runes" toggleGroup="$RuneVsDice" />
+      <RadioButton fx:id="d4saveRB" layoutX="135.0" layoutY="91.0" mnemonicParsing="false">
+         <toggleGroup>
+            <ToggleGroup fx:id="SaveToggle" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="d6saveRB" layoutX="135.0" layoutY="125.0" mnemonicParsing="false" toggleGroup="$SaveToggle" />
+      <RadioButton fx:id="d8saveRB" layoutX="135.0" layoutY="157.0" mnemonicParsing="false" toggleGroup="$SaveToggle" />
+      <RadioButton fx:id="d10saveRB" layoutX="135.0" layoutY="190.0" mnemonicParsing="false" toggleGroup="$SaveToggle" />
+      <RadioButton fx:id="d12saveRB" layoutX="135.0" layoutY="224.0" mnemonicParsing="false" toggleGroup="$SaveToggle" />
+      <RadioButton fx:id="d20saveRB" layoutX="135.0" layoutY="257.0" mnemonicParsing="false" toggleGroup="$SaveToggle" />
+      <RadioButton fx:id="d100saveRB" layoutX="135.0" layoutY="290.0" mnemonicParsing="false" toggleGroup="$SaveToggle" />
+      <RadioButton fx:id="dSaveRB" layoutX="135.0" layoutY="323.0" mnemonicParsing="false" toggleGroup="$SaveToggle" />
+      <Separator layoutX="6.0" layoutY="53.0" prefHeight="17.0" prefWidth="397.0" />
+      <RadioButton fx:id="SavedToggle" layoutX="23.0" layoutY="32.0" mnemonicParsing="false" text="Saved" toggleGroup="$RuneVsDice" />
+   </children>
+</AnchorPane>

@@ -12,9 +12,11 @@ public class DiceWriter {
     
     public void SaveRoll(String file, String amount, String sides, String augment, boolean aug) throws IOException
     {
+//	System.out.println("hello");
 	try {
+//	    System.out.println(file);
 	    PrintWriter output = new PrintWriter(new FileWriter(file, true));
-	    output.printf("%s,%s,%b,%s", amount, sides, aug, augment);
+	    output.printf("%s,%s,%b,%s \n", amount, sides, aug, augment);
 	    output.close();
 	    flag = true;
 		
@@ -31,5 +33,9 @@ public class DiceWriter {
 	return flag;
     }
     
+//    public void test()
+//    {
+//	System.out.println("hello");
+//    }
 
 }

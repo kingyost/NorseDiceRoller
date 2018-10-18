@@ -9,6 +9,8 @@ public class Dice implements Roller{
     private int totalSides;
     private int augment;
     
+    
+    
     public Dice(int side, int amount, int agument)
     {
 	totalSides = side;

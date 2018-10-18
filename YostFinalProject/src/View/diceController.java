@@ -3,6 +3,8 @@ package View;
 import model.Dice;
 import model.RuneDice;
 import writer.DiceWriter;
+import Reader.DiceReader;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,20 +30,22 @@ public class diceController implements Initializable{
 
     RuneDice rDice;
     Dice dice;
-    DiceWriter write;
+//    DiceWriter write;
+    DiceWriter write= new DiceWriter();
+    DiceReader read= new DiceReader();
 
-    @FXML private ComboBox savedRollsCmbBx;
+    @FXML private ComboBox<String> savedRollsCmbBx;
 
     @FXML private TextArea resultsBx;
 
-    @FXML private RadioButton d4saveChkBx;
-    @FXML private RadioButton d6saveChkBx;
-    @FXML private RadioButton d8saveChkBx;
-    @FXML private RadioButton d10saveChkBx;
-    @FXML private RadioButton d12saveChkBx;
-    @FXML private RadioButton d20saveChkBx;
-    @FXML private RadioButton d100saveChkBx;
-    @FXML private RadioButton dSaveChkBx;
+    @FXML private RadioButton d4saveRB;
+    @FXML private RadioButton d6saveRB;
+    @FXML private RadioButton d8saveRB;
+    @FXML private RadioButton d10saveRB;
+    @FXML private RadioButton d12saveRB;
+    @FXML private RadioButton d20saveRB;
+    @FXML private RadioButton d100saveRB;
+    @FXML private RadioButton dSaveRB;
 
     @FXML private TextField d4rolled;
     @FXML private TextField d6rolled;
@@ -74,18 +78,21 @@ public class diceController implements Initializable{
 
     @FXML private RadioButton RuneToggle;
     @FXML private RadioButton DiceToggle;
+    @FXML private RadioButton SaveToggle;
+
+    
 
     @FXML private CheckBox runicDiceChkBx;
 
     @FXML private ImageView runeImg;
     @FXML private ImageView runeDiscription;
 
-
+    ArrayList<String> diceString = new ArrayList<String>();
 
     ArrayList<Image> diceImages = new ArrayList<Image>();
     ArrayList<Image> imgMeaning = new ArrayList<Image>();
 
-    String file = "SavedRolls";
+    String file = "SavedRolls.txt";
 
 
 
@@ -110,14 +117,9 @@ public class diceController implements Initializable{
 	String d20Plus = d20Augment.getText();
 	String d100Plus = d100Augment.getText();
 	String dPlus = dAugment.getText();
-	
-//	boolean runeTog = RuneToggle.isSelected();
-	boolean runeTog = false;
-	boolean diceTog = true;
 
 
-//	if(RuneToggle.isSelected())
-	if(runeTog)
+	if(RuneToggle.isSelected())
 	{
 	    if(runicDiceChkBx.isSelected())
 	    {
@@ -136,7 +138,7 @@ public class diceController implements Initializable{
 	    }
 	}
 	
-	else if (diceTog){
+	else if (DiceToggle.isSelected()){
 	    try {
 		if(!d4roll.equals("") && !d4roll.equals("0"))	    
 		{
@@ -171,18 +173,19 @@ public class diceController implements Initializable{
 		    RollCall(Integer.parseInt(dSide), Integer.parseInt(dRoll), Integer.parseInt(dPlus), dMinusChkBx.isSelected());
 		}
 
-//		if(d4saveChkBx.isSelected())
-		if(diceTog)
-		{ write.SaveRoll(file, d4roll, "4", d4Plus, d4minusChkBx.isSelected());
-		} else if(d6saveChkBx.isSelected()) {
+//		System.out.println(d4saveRB.isSelected());
+		
+		if(d4saveRB.isSelected()){ 
+		    write.SaveRoll(file, d4roll, "4", d4Plus, d4minusChkBx.isSelected());
+		} else if(d6saveRB.isSelected()) {
 		    write.SaveRoll(file, d6roll, "6", d6Plus, d6minusChkBx.isSelected());
-		} else if(d8saveChkBx.isSelected()) {
+		} else if(d8saveRB.isSelected()) {
 		    write.SaveRoll(file, d8roll, "8", d6Plus, d8minusChkBx.isSelected());
-		} else if(d10saveChkBx.isSelected()) {
+		} else if(d10saveRB.isSelected()) {
 		    write.SaveRoll(file, d10roll, "10", d10Plus, d10minusChkBx.isSelected());
-		} else if(d12saveChkBx.isSelected()) {
+		} else if(d12saveRB.isSelected()) {
 		    write.SaveRoll(file, d12roll, "12", d12Plus, d12minusChkBx.isSelected());
-		}  else if(d20saveChkBx.isSelected()) {
+		}  else if(d20saveRB.isSelected()) {
 		    write.SaveRoll(file, d20roll, "20", d20Plus, d20minusChkBx.isSelected());
 		} else {
 		    write.SaveRoll(file, dRoll, dSide, d4Plus, dMinusChkBx.isSelected());
@@ -198,29 +201,57 @@ public class diceController implements Initializable{
 		Alert alert = new Alert(AlertType.ERROR, "Unable to write to " + file + ".");
 		alert.showAndWait();
 	    }
-	}
-	else {
+	    
+	} else if (SaveToggle.isSelected()){
+	    if(savedRollsCmbBx.getSelectionModel() != null)
+	    {
+		clickCombo(savedRollsCmbBx.getSelectionModel().getSelectedIndex());
+	    }
+	} else {
 	    Alert alert = new Alert(AlertType.ERROR, "please select a radio button.");
 	    alert.showAndWait();
 	}
 
+//	System.out.println(diceString.get(savedRollsCmbBx.getSelectionModel().getSelectedIndex()));
 
-
-
+	clear();
+	
+	initialize(null, null);
     }
 
-
+    @FXML public void clickCombo(int index)
+    {
+	boolean plus;
+//	System.out.println(diceString.get(savedRollsCmbBx.getSelectionModel().getSelectedIndex()));
+	String diceStr = diceString.get(index);
+	System.out.println(diceStr);
+	String[] fields = diceStr.split(",");
+	int amount = Integer.parseInt(fields[0]);
+	int sides = Integer.parseInt(fields[1]);
+	if(fields[2].equals("true"))
+	{
+	   plus = true;
+	} else {
+	    plus = false;
+	}
+	int augment = Integer.parseInt(fields[3]);
+	RollCall(sides,amount,augment,plus);
+    }
 
 
 
     public void RollCall(int side, int amount, int agument, boolean Agu)
     {
 	int modAgument=agument;
+	String plus = "+";
 
 	if(Agu)
 	{
 	    modAgument = -agument;
+	    plus = "-";
 	}
+	
+	
 
 
 	Dice dice = new Dice(side, amount, modAgument);
@@ -229,7 +260,7 @@ public class diceController implements Initializable{
 	dice.roll();
 
 	//    	    resultsBx.appendText(Integer.toString(dice.getTotal()) + "\n");
-	String printout = amount+ "d"+ side +" = "+dice.getTotal();
+	String printout = amount+ "d"+ side + plus + agument +" = "+dice.getTotal();
 	resultsBx.appendText(printout+"\n");
 	dice.resetTotal();
     }
@@ -284,13 +315,13 @@ public class diceController implements Initializable{
 
     @FXML private void clear() 
     {
-	d4saveChkBx.setSelected(false);
-	d6saveChkBx.setSelected(false);
-	d8saveChkBx.setSelected(false);
-	d10saveChkBx.setSelected(false);
-	d12saveChkBx.setSelected(false);
-	d20saveChkBx.setSelected(false);
-	dSaveChkBx.setSelected(false);
+	d4saveRB.setSelected(false);
+	d6saveRB.setSelected(false);
+	d8saveRB.setSelected(false);
+	d10saveRB.setSelected(false);
+	d12saveRB.setSelected(false);
+	d20saveRB.setSelected(false);
+	dSaveRB.setSelected(false);
 
 	d4minusChkBx.setSelected(false);
 	d6minusChkBx.setSelected(false);
@@ -301,6 +332,8 @@ public class diceController implements Initializable{
 	dMinusChkBx.setSelected(false);
 
 	runicDiceChkBx.setSelected(false);
+	
+	
 
 	d4rolled.setText("0");
 	d6rolled.setText("0");
@@ -320,9 +353,22 @@ public class diceController implements Initializable{
     }
 
 
-    public void initialize(URL arg0, ResourceBundle arg1) {
+    public void initialize(URL arg0, ResourceBundle arg1)  {
 	// TODO Auto-generated method stub
 	loadDiceImage();
+
+//	read.loadDice(file);
+	
+//	savedRollsCmbBx.setItems(read.loadDice(file));
+	read.loadDice(file);
+	savedRollsCmbBx.getItems().setAll(read.getDiceStr());
+	diceString.addAll(read.getDice());
+	
+    }
+    
+    public void readDice()
+    {
+	
     }
 
 }
